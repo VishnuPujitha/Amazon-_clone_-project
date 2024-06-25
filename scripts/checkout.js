@@ -1,4 +1,4 @@
-import{cart,removeFromCart} from'../data/cart.js';
+import{cart,removeFromCart,updateDeliveryOption} from'../data/cart.js';
 import{products} from'../data/products.js';
 import{formatCurrency} from'./utils/money.js';//named export
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';//day js esm version//default export
@@ -98,7 +98,9 @@ function deliveryOptionsHTML(matchingProduct,cartItem){
     :`$${formatCurrency(deliveryOption.priceCents)}-`;
     const isChecked = deliveryOption.id===cartItem.deliveryOptionId;
 
-    html +=` <div class="delivery-option">
+    html +=` <div class="delivery-option js-delivery-option"
+    data-product-id="${matchingProduct.id}"
+    data-delivery-option-id="${deliveryOption.id}">
                   <input type="radio" ${isChecked ?'checked':''}
                     class="delivery-option-input"
                     name="delivery-option-${matchingProduct.id}">
@@ -127,8 +129,10 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>{
   });
 
 });
-let cartQuantity=0;
-cart.forEach((cartItem)=>{
-  cartQuantity+=cartItem.quantity;
+document.querySelectorAll('.js-delivery-option')
+.forEach((element)=>{
+  element.addEventListener('click',()=>{
+    const {productId,deliveryOptionId}=element.dataset;//shorthand Property
+    updateDeliveryOption(productId,deliveryOptionId);
+  });
 });
-document.querySelector('.js-return-to-home-link').innerHTML=`${cartQuantity} items`;

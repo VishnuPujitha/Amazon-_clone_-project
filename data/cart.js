@@ -55,3 +55,15 @@
   cart =newCart;
   saveTostorage();
 }
+//the below fun update the delivery option
+ export function updateDeliveryOption(productId,deliveryOptionId){
+  let matchingItem;
+  cart.forEach((cartItem)=>{
+    if(productId===cartItem.productId){
+      matchingItem=cartItem;
+    }
+
+  });
+  matchingItem.deliveryOptionId = deliveryOptionId;
+  saveTostorage();
+}
