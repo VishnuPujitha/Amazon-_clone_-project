@@ -5,9 +5,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';//day js esm ve
 //generating the html for checkout html in js for looping through our cart 
 import{deliveryOptions,getDeliveryOption} from'../../data/deliveryoptions.js';
 import {renderPaymentSummary} from'./paymentSummary.js';
- const today =dayjs();
- const deliveryDate=today.add(7,'days');
- console.log(deliveryDate.format('dddd,MMMM D'));
+ 
  export  function renderOrderSummary(){
 let cartSummaryHTML='';
 cart.forEach((cartItem)=>{
