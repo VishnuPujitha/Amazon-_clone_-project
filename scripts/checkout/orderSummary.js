@@ -4,6 +4,7 @@ import{formatCurrency} from'../utils/money.js';//named export
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';//day js esm version//default export
 //generating the html for checkout html in js for looping through our cart 
 import{deliveryOptions,getDeliveryOption} from'../../data/deliveryoptions.js';
+import {renderPaymentSummary} from'./paymentSummary.js';
  const today =dayjs();
  const deliveryDate=today.add(7,'days');
  console.log(deliveryDate.format('dddd,MMMM D'));
@@ -118,6 +119,7 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>{
     removeFromCart(productId);
     const container= document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
+    renderPaymentSummary();//regnerate the html
 
   });
 
@@ -128,6 +130,7 @@ document.querySelectorAll('.js-delivery-option')
     const {productId,deliveryOptionId}=element.dataset;//shorthand Property
     updateDeliveryOption(productId,deliveryOptionId);//controller
     renderOrderSummary();//regernarte the view or html
+    renderPaymentSummary();//regenarte the html for paymentsummary
   });
 });
  }
